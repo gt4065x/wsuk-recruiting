@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WSUK 한학기 연수 프로그램 | 우송대학교 AI경영학과</title>
+  <style>
+    :root {
+      --primary: #1a3c6e;
+      --accent: #e8a020;
+      --light-bg: #f7f9fc;
+      --card-bg: #ffffff;
+      --text: #1e2532;
+      --muted: #6b7280;
+      --radius: 16px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+      color: var(--text);
+      background: var(--light-bg);
+      line-height: 1.7;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0d2547 0%, #1a3c6e 40%, #2563a8 70%, #1e8c7a 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 30%, rgba(232,160,32,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 20% 80%, rgba(37,99,168,0.25) 0%, transparent 55%);
+    }
+
+    .hero-badge {
+      position: relative;
+      display: inline-block;
+      background: rgba(232,160,32,0.2);
+      border: 1px solid rgba(232,160,32,0.6);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 6px 18px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      position: relative;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      position: relative;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 40px;
+      max-width: 640px;
+    }
+
+    .hero-stats {
+      position: relative;
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat .num {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+      display: block;
+    }
+
+    .hero-stat .lbl {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.05em;
+    }
+
+    .hero-cta {
+      position: relative;
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 16px 44px;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 8px 32px rgba(232,160,32,0.45);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(232,160,32,0.55);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.5);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 80px 24px; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      color: var(--primary);
+    }
+
+    .section-desc {
+      color: var(--muted);
+      max-width: 600px;
+      margin-bottom: 56px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── BENEFITS ── */
+    #benefits {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    #benefits .section-title { color: #fff; }
+    #benefits .section-desc { color: rgba(255,255,255,0.7); }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .benefit-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      transition: transform .25s, background .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .benefit-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s;
+    }
+
+    .benefit-card:hover { transform: translateY(-6px); background: rgba(255,255,255,0.11); }
+    .benefit-card:hover::before { transform: scaleX(1); }
+
+    .benefit-icon {
+      font-size: 2.8rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .benefit-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .benefit-highlight {
+      display: inline-block;
+      background: rgba(232,160,32,0.2);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 3px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .benefit-desc {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.75;
+    }
+
+    /* ── LOCATION MAP ── */
+    #location { background: #fff; }
+
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .location-map-box {
+      background: linear-gradient(135deg, #e8f0fe, #dbeafe);
+      border-radius: var(--radius);
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--primary);
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid rgba(26,60,110,0.1);
+    }
+
+    .map-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 24px;
+    }
+
+    .map-dot-area {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .map-svg { width: 100%; }
+
+    .country-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .country-tag {
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .country-tag span { font-size: 1.1rem; }
+
+    .location-info h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .location-info p {
+      color: var(--muted);
+      margin-bottom: 12px;
+      line-height: 1.8;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .info-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+    .info-text strong { font-weight: 700; color: var(--primary); display: block; }
+    .info-text span { font-size: 0.88rem; color: var(--muted); }
+
+    /* ── COST COMPARISON ── */
+    #cost { background: var(--light-bg); }
+
+    .cost-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .cost-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .cost-card .icon { font-size: 2.2rem; margin-bottom: 12px; }
+    .cost-card .label { font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; }
+    .cost-card .amount { font-size: 1.6rem; font-weight: 900; color: var(--primary); }
+    .cost-card .unit { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+    .cost-card.featured {
+      background: var(--primary);
+      color: #fff;
+    }
+    .cost-card.featured .label { color: rgba(255,255,255,0.7); }
+    .cost-card.featured .amount { color: var(--accent); }
+    .cost-card.featured .unit { color: rgba(255,255,255,0.6); }
+
+    /* ── PROGRAM SCHEDULE ── */
+    #schedule { background: #fff; }
+
+    .timeline {
+      position: relative;
+      max-width: 720px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 36px;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--primary));
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 28px;
+      margin-bottom: 36px;
+      position: relative;
+    }
+
+    .timeline-dot {
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      background: var(--primary);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      border: 3px solid var(--accent);
+      z-index: 1;
+      box-shadow: 0 0 0 4px #fff;
+    }
+
+    .timeline-content {
+      background: var(--light-bg);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      flex: 1;
+      border-left: 4px solid var(--accent);
+    }
+
+    .timeline-content h4 { font-size: 1.05rem; font-weight: 800; color: var(--primary); margin-bottom: 6px; }
+    .timeline-content p { font-size: 0.88rem; color: var(--muted); }
+
+    /* ── ENGLISH GROWTH ── */
+    #english { background: linear-gradient(135deg, #f0f7ff 0%, #fff7ed 100%); }
+
+    .english-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .english-visual {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 36px;
+      box-shadow: var(--shadow);
+    }
+
+    .english-visual h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 28px;
+    }
+
+    .bar-item { margin-bottom: 20px; }
+    .bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .bar-track {
+      height: 10px;
+      background: #e9edf5;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--primary), #2563a8);
+      animation: fillBar 1.2s ease-out forwards;
+      width: 0;
+    }
+    .bar-fill.accent { background: linear-gradient(90deg, var(--accent), #f59e0b); }
+
+    @keyframes fillBar {
+      to { width: var(--target); }
+    }
+
+    .english-desc h3 { font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 16px; }
+    .english-desc p { color: var(--muted); margin-bottom: 16px; line-height: 1.8; }
+
+    .feature-list { list-style: none; }
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+    .feature-list li::before { content: '✓'; color: var(--accent); font-weight: 900; flex-shrink: 0; margin-top: 2px; }
+
+    /* ── CAMPUS ── */
+    #campus { background: var(--primary); }
+    #campus .section-title { color: #fff; }
+    #campus .section-label { color: var(--accent); }
+    #campus .section-desc { color: rgba(255,255,255,0.7); }
+
+    .campus-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .campus-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform .25s;
+    }
+
+    .campus-card:hover { transform: translateY(-5px); }
+
+    .campus-img {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .campus-body { padding: 20px; }
+    .campus-body h4 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .campus-body p { font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.7; }
+
+    /* ── FAQ ── */
+    #faq { background: #fff; }
+
+    .faq-list { max-width: 720px; }
+    .faq-item {
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .faq-q {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 20px 0;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .faq-q .arrow {
+      font-size: 1.2rem;
+      transition: transform .3s;
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-q .arrow { transform: rotate(180deg); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease, padding .35s;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+    .faq-item.open .faq-a { max-height: 400px; padding-bottom: 20px; }
+
+    /* ── CTA FOOTER ── */
+    #apply {
+      background: linear-gradient(135deg, #0d2547 0%, #1a3c6e 50%, #0f4c40 100%);
+      text-align: center;
+      padding: 100px 24px;
+    }
+
+    #apply h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    #apply p { color: rgba(255,255,255,0.75); margin-bottom: 40px; font-size: 1rem; }
+
+    .apply-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 16px 40px;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 6px 24px rgba(232,160,32,0.4);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(232,160,32,0.5); }
+
+    .btn-secondary {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 16px 40px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: background .2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.18); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(13,37,71,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-logo em { color: var(--accent); font-style: normal; }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-apply {
+      background: var(--accent);
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-weight: 700 !important;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .location-grid,
+      .english-grid { grid-template-columns: 1fr; }
+      .campus-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .campus-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 20px; }
+    }
+
+    /* ── FLOATING NOTICE ── */
+    .floating-notice {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 14px 20px;
+      border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(232,160,32,0.5);
+      z-index: 200;
+      max-width: 220px;
+      text-align: center;
+      animation: pulse 3s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 8px 32px rgba(232,160,32,0.5); }
+      50% { box-shadow: 0 8px 48px rgba(232,160,32,0.8); }
+    }
+
+    .floating-notice .close-btn {
+      position: absolute;
+      top: -8px; right: -8px;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* divider */
+    .divider {
+      width: 48px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="#" class="nav-logo"><em>WSUK</em> 연수 프로그램</a>
+  <ul class="nav-links">
+    <li><a href="#benefits">혜택</a></li>
+    <li><a href="#location">위치</a></li>
+    <li><a href="#cost">비용</a></li>
+    <li><a href="#schedule">일정</a></li>
+    <li><a href="#english">영어성장</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#apply" class="nav-apply">지원하기</a></li>
+  </ul>
+</nav>
+
+<!-- FLOATING NOTICE -->
+<div class="floating-notice" id="floatingNotice">
+  <button class="close-btn" onclick="document.getElementById('floatingNotice').style.display='none'">✕</button>
+  🎓 2025-2학기<br>모집 진행 중
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">AI경영학과 × WSUK 특별 연수 프로그램</div>
+  <h1>중앙아시아의 심장에서<br><em>글로벌 커리어</em>를 설계하라</h1>
+  <p class="hero-sub">
+    카자흐스탄 우송대학교(WSUK) 한학기 연수 — 항공편 지원부터 월 7만원 기숙사까지,
+    가장 경제적인 해외 경험의 기회
+  </p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="num">1,000,000<span style="font-size:1rem">원</span></span>
+      <span class="lbl">왕복항공편 지원</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">70,000<span style="font-size:1rem">원</span></span>
+      <span class="lbl">월 기숙사비</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">5<span style="font-size:1rem">개국</span></span>
+      <span class="lbl">접근 가능 국가</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">24<span style="font-size:1rem">시간</span></span>
+      <span class="lbl">영어 몰입 환경</span>
+    </div>
+  </div>
+  <a href="#apply" class="hero-cta">지금 바로 신청하기 →</a>
+  <div class="scroll-hint">▼ SCROLL</div>
+</section>
+
+<!-- BENEFITS -->
+<section id="benefits">
+  <div class="container">
+    <div class="section-label">Special Benefits</div>
+    <h2 class="section-title">다른 해외연수에서는<br>절대 받을 수 없는 5가지 혜택</h2>
+    <p class="section-desc">AI경영학과 재학생에게만 제공되는 독점 지원 패키지입니다.</p>
+    <div class="benefits-grid">
+
+      <div class="benefit-card">
+        <span class="benefit-icon">✈️</span>
+        <div class="benefit-title">왕복항공편 전액 지원</div>
+        <div class="benefit-highlight">100만원 상당</div>
+        <p class="benefit-desc">
+          인천 ↔ 투르케스탄 왕복 항공권을 학교가 전액 지원합니다. 가장 큰 초기 비용 걱정 없이 출발하세요.
+          항공사 스케줄에 맞춰 학과 담당자가 발권까지 도와드립니다.
+        </p>
+      </div>
+
+      <div class="benefit-card">
+        <span class="benefit-icon">🏠</span>
+        <div class="benefit-title">믿기 어려운 기숙사비</div>
+        <div class="benefit-highlight">월 단 70,000원</div>
+        <p class="benefit-desc">
+          카자흐스탄 정부가 제공한 17층 신축 건물에 마련된 최신 기숙사 시설.
+          1개월 기숙사비가 국내 한 끼 외식 비용과 비슷한 수준입니다. 안전하고 쾌적한 환경이 보장됩니다.
+        </p>
+      </div>
+
+      <div class="benefit-card">
+        <span class="benefit-icon">💰</span>
+        <div class="benefit-title">대전과 비슷한 현지 물가</div>
+        <div class="benefit-highlight">생활비 부담 최소화</div>
+        <p class="benefit-desc">
+          식사, 교통, 쇼핑 등 일상 물가가 대전과 유사한 수준. 해외라서 돈이 더 많이 든다는 걱정은 No!
+          오히려 외식과 여가를 더 자유롭게 즐길 수 있습니다.
+        </p>
+      </div>
+
+      <div class="benefit-card">
+        <span class="benefit-icon">🌍</span>
+        <div class="benefit-title">중앙아시아 허브 — 주변국 탐방</div>
+        <div class="benefit-highlight">대중교통으로 이웃나라까지</div>
+        <p class="benefit-desc">
+          투르케스탄은 실크로드의 중심지. 기차·버스로 <strong style="color:#e8a020">우즈베키스탄, 키르기스스탄</strong>을,
+          항공편으로 <strong style="color:#e8a020">터키, 러시아</strong>까지 저렴하게 여행 가능합니다. 한학기가 세계여행이 됩니다.
+        </p>
+      </div>
+
+      <div class="benefit-card" style="grid-column: span 1;">
+        <span class="benefit-icon">🗣️</span>
+        <div class="benefit-title">24시간 영어 몰입 환경</div>
+        <div class="benefit-highlight">영어 실력 급상승 보장</div>
+        <p class="benefit-desc">
+          현지 카자흐스탄·외국인 학생들과 기숙사를 함께 사용하며 하루 24시간 영어로 소통합니다.
+          어학원보다 효과적인 자연스러운 영어 몰입 환경 — WSUK의 수업도 전부 영어로 진행됩니다.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="location">
+  <div class="container">
+    <div class="section-label">Location</div>
+    <h2 class="section-title">실크로드의 보물,<br>투르케스탄에 위치</h2>
+    <div class="divider"></div>
+    <div class="location-grid">
+      <div class="location-map-box">
+        <div class="map-inner">
+          <svg class="map-svg" viewBox="0 0 380 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background -->
+            <rect width="380" height="240" rx="12" fill="#e8f0fe"/>
+            <!-- Rough Central Asia shape -->
+            <path d="M40 80 Q80 60 140 65 Q180 60 220 75 Q270 70 320 85 Q340 100 330 130 Q320 160 280 170 Q240 180 200 175 Q160 178 120 165 Q80 155 50 140 Q30 120 40 80Z" fill="#c7d9f5" stroke="#93b4e0" stroke-width="1.5"/>
+            <!-- Kazakhstan highlight -->
+            <path d="M100 75 Q140 65 185 72 Q220 70 255 80 Q280 90 275 115 Q268 140 240 148 Q210 158 180 155 Q150 153 125 143 Q100 133 90 112 Q82 92 100 75Z" fill="#3b6cc7" opacity="0.3"/>
+            <!-- Turkestan marker -->
+            <circle cx="195" cy="115" r="10" fill="#e8a020" opacity="0.9"/>
+            <circle cx="195" cy="115" r="5" fill="#e8a020"/>
+            <circle cx="195" cy="115" r="16" fill="none" stroke="#e8a020" stroke-width="2" opacity="0.5">
+              <animate attributeName="r" from="10" to="22" dur="2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" from="0.6" to="0" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <text x="205" y="108" fill="#1a3c6e" font-size="10" font-weight="bold">투르케스탄</text>
+            <!-- Country labels -->
+            <text x="165" y="95" fill="#3b6cc7" font-size="9" font-weight="600">카자흐스탄</text>
+            <text x="140" y="155" fill="#555" font-size="8">우즈베키스탄</text>
+            <text x="240" y="165" fill="#555" font-size="8">키르기스스탄</text>
+            <text x="60" y="125" fill="#555" font-size="8">러시아</text>
+            <text x="60" y="168" fill="#555" font-size="8">투르크메니스탄</text>
+            <!-- Lines to countries -->
+            <line x1="195" y1="115" x2="160" y2="150" stroke="#e8a020" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.7"/>
+            <line x1="195" y1="115" x2="248" y2="158" stroke="#e8a020" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.7"/>
+            <line x1="195" y1="115" x2="100" y2="118" stroke="#e8a020" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.7"/>
+          </svg>
+          <div class="country-list">
+            <div class="country-tag"><span>🇺🇿</span> 우즈베키스탄</div>
+            <div class="country-tag"><span>🇰🇬</span> 키르기스스탄</div>
+            <div class="country-tag"><span>🇹🇷</span> 터키</div>
+            <div class="country-tag"><span>🇷🇺</span> 러시아</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="location-info">
+        <h3>🏛️ Woosong University Kazakhstan (WSUK)</h3>
+        <p>
+          투르케스탄은 1,500년 역사의 실크로드 교역 도시로, 중앙아시아의 문화·교통 허브입니다.
+          카자흐스탄 정부가 전략적으로 육성하는 신흥 교육도시에 WSUK 캠퍼스가 자리합니다.
+        </p>
+        <div class="info-item">
+          <span class="info-icon">🏢</span>
+          <div class="info-text">
+            <strong>17층 신축 캠퍼스 빌딩</strong>
+            <span>카자흐스탄 정부가 건물 및 시설 일체 제공한 최신 교육 환경</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">📚</span>
+          <div class="info-text">
+            <strong>영어 전용 수업</strong>
+            <span>AI·빅데이터, 경영 분야 전공과목 영어 강의</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">🌐</span>
+          <div class="info-text">
+            <strong>국제 학생 커뮤니티</strong>
+            <span>카자흐스탄 및 중앙아시아 학생들과 교류</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">🚂</span>
+          <div class="info-text">
+            <strong>뛰어난 교통 접근성</strong>
+            <span>기차·버스로 인근 국가 이동, 투르케스탄 공항 보유</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">🏫</span>
+          <div class="info-text">
+            <strong>우송학원 71년 교육 노하우</strong>
+            <span>대전 본교와 동일한 교육 시스템 적용</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COST -->
+<section id="cost">
+  <div class="container">
+    <div class="section-label">Cost Breakdown</div>
+    <h2 class="section-title">한 학기 예상 비용 비교</h2>
+    <p class="section-desc" style="margin-bottom:40px;">일반 해외 교환학생 프로그램과 비교해 얼마나 저렴한지 확인해 보세요.</p>
+    <div class="cost-grid">
+      <div class="cost-card featured">
+        <div class="icon">✈️</div>
+        <div class="label">왕복항공편</div>
+        <div class="amount">0원</div>
+        <div class="unit">학과 전액 지원 (100만원 상당)</div>
+      </div>
+      <div class="cost-card featured">
+        <div class="icon">🏠</div>
+        <div class="label">기숙사비 (5개월)</div>
+        <div class="amount">350,000원</div>
+        <div class="unit">월 70,000원 × 5개월</div>
+      </div>
+      <div class="cost-card">
+        <div class="icon">🍜</div>
+        <div class="label">식비 (월 추정)</div>
+        <div class="amount">~15만원</div>
+        <div class="unit">대전 수준의 현지 물가</div>
+      </div>
+      <div class="cost-card">
+        <div class="icon">🚌</div>
+        <div class="label">교통비 (월 추정)</div>
+        <div class="amount">~3만원</div>
+        <div class="unit">시내 대중교통 저렴</div>
+      </div>
+      <div class="cost-card">
+        <div class="icon">🎒</div>
+        <div class="label">여행/여가 (월 추정)</div>
+        <div class="amount">~10만원</div>
+        <div class="unit">주변국 여행 포함</div>
+      </div>
+      <div class="cost-card" style="background: linear-gradient(135deg, #fef3c7, #fff7ed); border: 2px solid var(--accent);">
+        <div class="icon">💎</div>
+        <div class="label">한 학기 총 예상비용</div>
+        <div class="amount" style="color: var(--primary);">~200만원</div>
+        <div class="unit" style="color: var(--muted);">항공권 지원 후 실부담</div>
+      </div>
+    </div>
+    <p style="margin-top:24px; font-size:0.82rem; color:var(--muted);">※ 위 금액은 예시이며 실제 비용은 개인 생활패턴에 따라 달라질 수 있습니다.</p>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="schedule">
+  <div class="container">
+    <div class="section-label">Program Schedule</div>
+    <h2 class="section-title">한학기 프로그램 일정</h2>
+    <div class="divider"></div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot">📋</div>
+        <div class="timeline-content">
+          <h4>모집 및 선발 (D-60 ~ D-30)</h4>
+          <p>학과 공지 확인 → 지원서 제출 → 면접 및 최종 선발. 영어 기초 능력 및 지원 동기를 중심으로 평가합니다.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">🛫</div>
+        <div class="timeline-content">
+          <h4>출국 준비 (D-30 ~ D-7)</h4>
+          <p>비자 발급, 항공권 발권, 오리엔테이션 참석. 학과 담당 교수님과 개별 상담을 통해 수강 과목 사전 조율.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">🏫</div>
+        <div class="timeline-content">
+          <h4>수업 및 캠퍼스 생활 (1~4개월)</h4>
+          <p>영어 전용 강의 수강, 현지 학생들과 기숙사 생활, 팀 프로젝트 및 발표를 통한 실전 영어 훈련.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">🌍</div>
+        <div class="timeline-content">
+          <h4>주변국 탐방 (방학·주말 활용)</h4>
+          <p>우즈베키스탄 타슈켄트·사마르칸트, 키르기스스탄 비슈케크 등 인근 도시를 저렴한 대중교통으로 여행.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">🎓</div>
+        <div class="timeline-content">
+          <h4>학점 인정 및 귀국 (5개월 후)</h4>
+          <p>WSUK 이수 학점의 본교 학점 인정. 귀국 후 글로벌 경험 포트폴리오 완성. 취업·대학원 준비에 직접 활용.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ENGLISH -->
+<section id="english">
+  <div class="container">
+    <div class="english-grid">
+      <div class="english-visual">
+        <h3>📊 연수 전후 영어 실력 변화 (예상)</h3>
+        <div class="bar-item">
+          <div class="bar-label"><span>말하기 (Speaking)</span><span>📈</span></div>
+          <div class="bar-track"><div class="bar-fill" style="--target: 82%"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label"><span>듣기 (Listening)</span><span>📈</span></div>
+          <div class="bar-track"><div class="bar-fill" style="--target: 88%"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label"><span>읽기/쓰기 (R&W)</span><span>📈</span></div>
+          <div class="bar-track"><div class="bar-fill" style="--target: 74%"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label"><span>자신감 (Confidence)</span><span>📈</span></div>
+          <div class="bar-track"><div class="bar-fill accent" style="--target: 92%"></div></div>
+        </div>
+        <p style="font-size:0.78rem; color:var(--muted); margin-top:16px;">※ 이전 참가 학생 자체 평가 기반 추정치</p>
+      </div>
+
+      <div class="english-desc">
+        <div class="section-label">English Immersion</div>
+        <h3 class="section-title" style="font-size:1.8rem;">24시간 영어 몰입,<br>어학원보다 빠른 성장</h3>
+        <p>
+          WSUK의 수업은 100% 영어로 진행됩니다. 기숙사에서 함께 생활하는 카자흐스탄,
+          중앙아시아 학생들과의 일상 속 대화가 영어 실력을 폭발적으로 향상시킵니다.
+        </p>
+        <p>
+          교실 밖에서도 영어가 필요한 환경이 자연스럽게 형성되어,
+          단순 어학연수보다 훨씬 빠른 속도로 실용 영어를 습득할 수 있습니다.
+        </p>
+        <ul class="feature-list">
+          <li>전공과목 영어 강의로 비즈니스 영어 자연 습득</li>
+          <li>현지 친구들과 24시간 생활 영어 실전 연습</li>
+          <li>다국적 학생들과 팀 프로젝트 협업 경험</li>
+          <li>귀국 후 영어 면접·토익 점수에 직접 반영</li>
+          <li>글로벌 네트워크 형성 — 평생 이어지는 해외 인맥</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPUS -->
+<section id="campus">
+  <div class="container">
+    <div class="section-label">Campus Life</div>
+    <h2 class="section-title">WSUK 캠퍼스 라이프</h2>
+    <p class="section-desc">새로운 문화, 새로운 친구, 새로운 나를 발견하는 공간</p>
+    <div class="campus-grid">
+      <div class="campus-card">
+        <div class="campus-img">📚</div>
+        <div class="campus-body">
+          <h4>최신 강의 시설</h4>
+          <p>카자흐스탄 정부가 지원한 17층 신축 건물. 스마트 강의실, 실험실, 도서관 등 최첨단 교육 인프라 완비.</p>
+        </div>
+      </div>
+      <div class="campus-card">
+        <div class="campus-img">🏃</div>
+        <div class="campus-body">
+          <h4>스포츠 & 레크리에이션</h4>
+          <p>체육관, 스포츠 시설 이용 가능. 현지 학생들과 함께하는 스포츠 활동으로 빠른 친목 형성.</p>
+        </div>
+      </div>
+      <div class="campus-card">
+        <div class="campus-img">🍽️</div>
+        <div class="campus-body">
+          <h4>카페테리아 & 식당</h4>
+          <p>다양한 중앙아시아 요리를 저렴하게 즐길 수 있는 캠퍼스 식당. 한국 음식도 인근에서 구할 수 있습니다.</p>
+        </div>
+      </div>
+      <div class="campus-card">
+        <div class="campus-img">🌙</div>
+        <div class="campus-body">
+          <h4>기숙사 (월 7만원)</h4>
+          <p>안전하고 쾌적한 기숙사 환경. 현지 학생들과 같은 층에서 생활하며 진정한 글로벌 친구를 사귀세요.</p>
+        </div>
+      </div>
+      <div class="campus-card">
+        <div class="campus-img">🏛️</div>
+        <div class="campus-body">
+          <h4>역사 도시 투르케스탄</h4>
+          <p>1,500년 역사의 실크로드 도시. 야사위 영묘 등 유네스코 세계문화유산이 캠퍼스 인근에 위치.</p>
+        </div>
+      </div>
+      <div class="campus-card">
+        <div class="campus-img">🌐</div>
+        <div class="campus-body">
+          <h4>다국적 문화 교류</h4>
+          <p>카자흐스탄, 우즈베키스탄, 키르기스스탄 학생들과 교류. 진정한 다문화 글로벌 감각을 키울 수 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">자주 묻는 질문</h2>
+    <div class="divider"></div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          영어를 잘 못해도 지원할 수 있나요?
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          기초적인 의사소통이 가능하다면 지원 가능합니다. 오히려 영어가 완벽하지 않기 때문에 더 빠르게 성장할 수 있습니다. 현지에서 매일 영어를 써야 하는 환경 자체가 최고의 교사입니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          학점은 어떻게 인정되나요?
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          WSUK에서 이수한 학점은 본교(우송대) 학점으로 인정됩니다. 구체적인 인정 과목 및 학점 수는 학과 사무실에 문의하시거나 담당 교수님과 사전 상담을 통해 확인하실 수 있습니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          카자흐스탄은 안전한가요?
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          카자흐스탄은 외국 학생들이 많이 찾는 비교적 안전한 국가입니다. 투르케스탄은 카자흐스탄 정부가 집중 육성하는 신도시로, 치안이 잘 유지되어 있습니다. 학교 측에서 비상 연락망 및 학생 안전 관리를 지원합니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          비자 발급은 어떻게 하나요?
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          카자흐스탄은 한국 여권 소지자에게 30일 무비자 입국이 허용됩니다. 한 학기 이상 체류 시에는 학생 비자(학교 초청장 필요)를 발급받아야 하며, 학과 담당자가 서류 준비를 도와드립니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          주변국 여행은 어떻게 하나요?
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          투르케스탄에서 우즈베키스탄 타슈켄트까지 기차로 약 3~4시간, 버스로도 이동 가능합니다. 키르기스스탄은 항공편이 편리하며 요금이 저렴합니다. 터키, 러시아는 주변 주요 공항(알마티, 누르술탄)에서 저가항공을 이용할 수 있습니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          현지에서 아프거나 응급 상황이 생기면?
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          여행자 보험 가입이 의무화되어 있으며, 학교 내 보건실 및 인근 병원 이용이 가능합니다. 학과 코디네이터가 24시간 비상 연락을 유지하며, 카자흐스탄의 의료 수준은 수준급입니다.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- APPLY CTA -->
+<section id="apply">
+  <div class="container">
+    <h2>지금 바로 인생을 바꿀<br>한 학기를 신청하세요</h2>
+    <p>
+      항공편 100만원 지원 + 월 7만원 기숙사 + 5개국 여행 + 영어 급성장<br>
+      AI경영학과 재학생만을 위한 특별한 기회, 선착순 마감됩니다
+    </p>
+    <div class="apply-buttons">
+      <a href="mailto:ichangjun412@gmail.com" class="btn-primary">📧 이메일로 지원하기</a>
+      <a href="tel:042-629-6677" class="btn-secondary">📞 042-629-6677</a>
+    </div>
+    <p style="margin-top: 48px; font-size: 0.82rem; color: rgba(255,255,255,0.45);">
+      © 2025 우송대학교 AI경영학과 × WSUK 연수 프로그램<br>
+      문의: ichangjun412@gmail.com | 042-629-6677 | wsuk.edu.kz
+    </p>
+  </div>
+</section>
+
+<script>
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('open');
+  }
+
+  // Animate bars on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.bar-fill').forEach(bar => {
+          bar.style.width = bar.style.getPropertyValue('--target') || '0%';
+          // Re-trigger animation
+          bar.style.animation = 'none';
+          bar.offsetHeight;
+          bar.style.animation = 'fillBar 1.4s ease-out forwards';
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.english-visual').forEach(el => observer.observe(el));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
