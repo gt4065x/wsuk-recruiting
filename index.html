@@ -1358,6 +1358,160 @@
       font-weight: 700;
       color: var(--muted);
     }
+
+    /* CURRICULUM */
+    .curriculum-box {
+      background: var(--light-bg);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+      margin-top: 8px;
+      border: 1px solid #e5eaf2;
+    }
+
+    .curriculum-box h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .curriculum-box .subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .curriculum-tracks {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .curriculum-track {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px 24px;
+      border-left: 4px solid var(--accent);
+    }
+
+    .curriculum-track .track-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .curriculum-track .track-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .credit-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .credit-badge {
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 999px;
+    }
+
+    .credit-badge.accent {
+      background: var(--accent);
+    }
+
+    /* PIP BUTTON */
+    .pip-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9000;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 13px 22px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(232,160,32,0.45);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .pip-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(232,160,32,0.6);
+    }
+
+    /* PIP MODAL */
+    .pip-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 9500;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pip-overlay.active {
+      display: flex;
+    }
+
+    .pip-window {
+      position: relative;
+      background: #1a1a2e;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      width: min(90vw, 900px);
+      height: min(80vh, 600px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .pip-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .pip-close {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 4px;
+      transition: color .15s;
+    }
+
+    .pip-close:hover { color: #fff; }
+
+    .pip-frame {
+      flex: 1;
+      border: none;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
   </style>
 </head>
 
@@ -1392,7 +1546,7 @@
     <h1>카자흐스탄에서 만나는<br><em>진짜 글로벌 경험</em></h1>
     <p class="hero-sub">
       WSUK(Woosong University Kazakhstan) 한학기 교환학생 — 항공권 전액 지원,
-      월 8만원 기숙사, 5개국 여행, 폭발적인 영어 성장
+      월 7~8만원 기숙사 (환율에 따라 변동), 5개국 여행, 폭발적인 영어 성장
     </p>
     <div class="hero-period">
       <span class="dot"></span>
@@ -1400,17 +1554,17 @@
     </div>
     <div class="hero-stats">
       <div class="hero-stat">
-        <span class="num">0원</span>
-        <span class="lbl">왕복항공편 본인부담</span>
+        <span class="num">✈️ 전액지원</span>
+        <span class="lbl">왕복항공편 지원</span>
       </div>
       <div class="hero-stat-divider"></div>
       <div class="hero-stat">
-        <span class="num">8만원</span>
+        <span class="num">7~8만원</span>
         <span class="lbl">월 기숙사비</span>
       </div>
       <div class="hero-stat-divider"></div>
       <div class="hero-stat">
-        <span class="num">0원</span>
+        <span class="num">전액면제</span>
         <span class="lbl">현지 교육비</span>
       </div>
       <div class="hero-stat-divider"></div>
@@ -1453,6 +1607,27 @@
           <div class="val"><em>2026년 9월 ~ 12월</em><br>한학기</div>
         </div>
       </div>
+
+      <div class="curriculum-box">
+        <h3>📘 2026 교육과정 안내 — English for Global Certification</h3>
+        <p class="subtitle">2026 Fall English Program · 총 17학점 이수</p>
+        <div class="curriculum-tracks">
+          <div class="curriculum-track">
+            <div class="track-name">Activity-based Intensive English Program</div>
+            <div class="track-desc">집중적인 활동 중심 영어 수업으로 실용 영어 능력을 빠르게 향상시킵니다.</div>
+          </div>
+          <div class="curriculum-track">
+            <div class="track-name">Regular Program</div>
+            <div class="track-desc">정규 커리큘럼 과정으로 체계적인 언어 교육과 현지 대학 수업을 병행합니다.</div>
+          </div>
+        </div>
+        <div class="credit-row">
+          <span class="credit-badge accent">총 17학점</span>
+          <span class="credit-badge">영어 수업 12학점</span>
+          <span class="credit-badge">Freshmen Capstone Project 3학점</span>
+          <span class="credit-badge">Global Student Engagement 2학점</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1467,7 +1642,7 @@
         <div class="benefit-card">
           <span class="benefit-icon">✈️</span>
           <div class="benefit-title">왕복항공권 전액 지원</div>
-          <div class="benefit-highlight">100만원 상당 무상 지급</div>
+          <div class="benefit-highlight">100만원 상당 학교 전액 지원</div>
           <p class="benefit-desc">
             인천 ↔ 투르케스탄 왕복 항공권을 학교가 전액 지원합니다.
             출국·귀국 시 현지 교통편도 함께 제공되어 이동 걱정 없이 출발할 수 있습니다.
@@ -1487,10 +1662,10 @@
         <div class="benefit-card">
           <span class="benefit-icon">🏠</span>
           <div class="benefit-title">믿기 어려운 기숙사비</div>
-          <div class="benefit-highlight">월 단 80,000원</div>
+          <div class="benefit-highlight">월 70,000~80,000원 수준 (환율에 따라 변동)</div>
           <p class="benefit-desc">
             카자흐스탄 정부가 제공한 학교 도보거리 신축 건물에 마련된 최신 기숙사.
-            4개월 총 기숙사비가 320,000원 수준입니다. 안전하고 쾌적한 환경이 보장됩니다.
+            4개월 총 기숙사비가 약 28~32만원 수준입니다 (환율에 따라 변동). 안전하고 쾌적한 환경이 보장됩니다.
           </p>
         </div>
 
@@ -2073,20 +2248,20 @@
         <div class="cost-card featured">
           <div class="icon">✈️</div>
           <div class="label">왕복항공편</div>
-          <div class="amount">0원</div>
-          <div class="unit">학교 전액 지원</div>
+          <div class="amount">학교 지원</div>
+          <div class="unit">본인 부담 없음 (100만원 상당)</div>
         </div>
         <div class="cost-card featured">
           <div class="icon">📚</div>
           <div class="label">현지 교육비</div>
-          <div class="amount">0원</div>
-          <div class="unit">등록자 전액 면제</div>
+          <div class="amount">전액 면제</div>
+          <div class="unit">본교 2026-2학기 등록자 해당</div>
         </div>
         <div class="cost-card featured">
           <div class="icon">🏠</div>
           <div class="label">기숙사비 (4개월)</div>
-          <div class="amount">320,000원</div>
-          <div class="unit">월 80,000원 × 4개월</div>
+          <div class="amount">약 28~32만원</div>
+          <div class="unit">월 70,000~80,000원 × 4개월 (환율에 따라 변동)</div>
         </div>
         <div class="cost-card">
           <div class="icon">🍜</div>
@@ -2294,7 +2469,7 @@
         <div class="campus-card">
           <div class="campus-img">🌙</div>
           <div class="campus-body">
-            <h4>기숙사 (월 8만원)</h4>
+            <h4>기숙사 (월 7~8만원)</h4>
             <p>안전하고 쾌적한 기숙사. 현지 학생들과 같은 층에서 생활하며 글로벌 친구를 사귀세요.</p>
           </div>
         </div>
@@ -2374,7 +2549,7 @@
   <section id="apply">
     <div class="container">
       <h2>지금 바로 신청하세요</h2>
-      <p class="sub">항공권 + 교육비 무료 + 월 8만원 기숙사<br>우송대학교 재학생 누구나 지원 가능합니다</p>
+      <p class="sub">항공권 전액 지원 + 교육비 면제 + 월 7~8만원 기숙사<br>우송대학교 재학생 누구나 지원 가능합니다</p>
       <div class="contact-box">
         <div class="contact-item">
           <div class="c-label">전화 문의</div>
@@ -2401,6 +2576,47 @@
       </p>
     </div>
   </section>
+
+  <!-- PIP BUTTON & MODAL -->
+  <button class="pip-btn" onclick="openPip()">
+    🎞️ 프로그램 안내 슬라이드 보기
+  </button>
+
+  <div class="pip-overlay" id="pipOverlay" onclick="closePipOnBg(event)">
+    <div class="pip-window">
+      <div class="pip-header">
+        <span>📄 2026 WSUK 해외연수 Info. Session — 국제교류처</span>
+        <button class="pip-close" onclick="closePip()">✕</button>
+      </div>
+      <iframe
+        class="pip-frame"
+        id="pipFrame"
+        src=""
+        allow="autoplay"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+
+  <script>
+    function openPip() {
+      const frame = document.getElementById('pipFrame');
+      if (!frame.src || frame.src === window.location.href) {
+        frame.src = 'https://drive.google.com/file/d/1J7EAhyqaaT1GhxXmszfFXjlOWcQ0Ubty/preview';
+      }
+      document.getElementById('pipOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePip() {
+      document.getElementById('pipOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function closePipOnBg(e) {
+      if (e.target === document.getElementById('pipOverlay')) closePip();
+    }
+  </script>
 
   <script>
     // Gallery images list
