@@ -1552,6 +1552,75 @@
       text-decoration: none;
     }
 
+    /* CHEER POPUP */
+    .cheer-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 9800;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .cheer-overlay.active {
+      display: flex;
+    }
+
+    .cheer-modal {
+      background: linear-gradient(135deg, #0d2547 0%, #1a3c6e 60%, #0f4c40 100%);
+      border: 1px solid rgba(232,160,32,0.4);
+      border-radius: 24px;
+      padding: 48px 40px 40px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+      animation: cheerIn .35s cubic-bezier(.34,1.56,.64,1) both;
+    }
+
+    @keyframes cheerIn {
+      from { opacity: 0; transform: scale(0.85) translateY(20px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .cheer-emoji {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .cheer-modal h3 {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .cheer-modal p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.85;
+      margin-bottom: 32px;
+    }
+
+    .cheer-close {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 13px 36px;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(232,160,32,0.4);
+      transition: transform .18s;
+    }
+
+    .cheer-close:hover { transform: translateY(-2px); }
+
     /* PIP BUTTON */
     .pip-btn {
       position: fixed;
@@ -2735,6 +2804,21 @@
     </div>
   </section>
 
+  <!-- CHEER POPUP -->
+  <div class="cheer-overlay" id="cheerOverlay" onclick="closeCheerOnBg(event)">
+    <div class="cheer-modal">
+      <span class="cheer-emoji">🌟</span>
+      <h3>꿈꾸는 당신이 미래의 승리자입니다!</h3>
+      <p>
+        멋진 꿈을 꾸는 사람만이 멋진 꿈을 이룰 수 있습니다.<br>
+        꿈꾸는 당신이 미래의 승리자입니다.<br><br>
+        그 꿈을 향한 여정에<br>
+        <strong style="color:var(--accent);">우송대학교가 함께 하겠습니다!!</strong>
+      </p>
+      <button class="cheer-close" onclick="closeCheer()">감사합니다 🙏</button>
+    </div>
+  </div>
+
   <!-- PIP BUTTON & MODAL -->
   <button class="pip-btn" onclick="openPip()">
     🎞️ 프로그램 안내 슬라이드 보기
@@ -2781,16 +2865,38 @@
       if (saved) showSurveyDone(saved);
     })();
 
+    // Web3Forms Access Key (web3forms.com에서 발급)
+    var WEB3FORMS_KEY = '689858';
+
+    function openCheer() {
+      document.getElementById('cheerOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCheer() {
+      document.getElementById('cheerOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function closeCheerOnBg(e) {
+      if (e.target === document.getElementById('cheerOverlay')) closeCheer();
+    }
+
     function submitSurvey(val) {
       localStorage.setItem('wsuk_survey_2026', val);
       showSurveyDone(val);
-      // 관심있다 선택 시 관리자에게 이메일 알림 (메일 앱 자동 실행)
       if (val === 'yes') {
-        var link = document.createElement('a');
-        link.href = 'mailto:ichangjun412@gmail.com'
-          + '?subject=' + encodeURIComponent('[WSUK 2026] 관심 있다 응답')
-          + '&body=' + encodeURIComponent('WSUK 2026 카자흐스탄 교환학생 프로그램에 관심 있다고 응답한 학생이 있습니다.\n\n응답 일시: ' + new Date().toLocaleString('ko-KR'));
-        link.click();
+        openCheer();
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: '[WSUK 2026] 관심 있다 응답',
+            from_name: 'WSUK 홍보 사이트',
+            message: 'WSUK 2026 카자흐스탄 교환학생 프로그램에 관심 있다고 응답한 학생이 있습니다.\n\n응답 일시: ' + new Date().toLocaleString('ko-KR')
+          })
+        }).catch(function() {});
       }
     }
 
