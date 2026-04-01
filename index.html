@@ -1427,6 +1427,131 @@
       background: var(--accent);
     }
 
+    /* SURVEY */
+    .survey-box {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 36px 40px;
+      margin: 48px auto 0;
+      max-width: 560px;
+      text-align: center;
+    }
+
+    .survey-box .survey-q {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .survey-box .survey-hint {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 24px;
+    }
+
+    .survey-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .survey-btns button {
+      border: none;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 13px 32px;
+      cursor: pointer;
+      transition: transform .18s, box-shadow .18s;
+    }
+
+    .survey-btns button:hover {
+      transform: translateY(-2px);
+    }
+
+    .s-yes {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(232,160,32,0.4);
+    }
+
+    .s-no {
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.85);
+      border: 1px solid rgba(255,255,255,0.2) !important;
+    }
+
+    .survey-done {
+      display: none;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.9);
+      padding: 12px 0;
+    }
+
+    .survey-done .check {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    /* APPLY QR */
+    .apply-qr-wrap {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 36px 0;
+    }
+
+    .apply-qr-img {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: #fff;
+      padding: 8px;
+    }
+
+    .apply-contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .apply-contact-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 14px 20px;
+    }
+
+    .apply-contact-row .ico { font-size: 1.3rem; }
+
+    .apply-contact-row .ac-label {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.08em;
+      margin-bottom: 2px;
+    }
+
+    .apply-contact-row .ac-val {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .apply-contact-row .ac-val a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
     /* PIP BUTTON */
     .pip-btn {
       position: fixed;
@@ -2550,26 +2675,59 @@
     <div class="container">
       <h2>지금 바로 신청하세요</h2>
       <p class="sub">항공권 전액 지원 + 교육비 면제 + 월 7~8만원 기숙사<br>우송대학교 재학생 누구나 지원 가능합니다</p>
-      <div class="contact-box">
-        <div class="contact-item">
-          <div class="c-label">전화 문의</div>
-          <div class="c-val"><a href="tel:042-629-6677">042-629-6677</a></div>
+
+      <!-- QR + 연락처 -->
+      <div class="apply-qr-wrap">
+        <div style="text-align:center;">
+          <div style="font-size:0.75rem; color:rgba(255,255,255,0.5); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:10px;">온라인 신청 QR코드</div>
+          <img src="images/QR_code.png" alt="온라인 신청 QR코드" class="apply-qr-img" />
+          <div style="font-size:0.75rem; color:rgba(255,255,255,0.45); margin-top:8px;">카메라로 스캔하여 신청</div>
         </div>
-        <div style="width:1px; background:rgba(255,255,255,0.15);"></div>
-        <div class="contact-item">
-          <div class="c-label">이메일 문의</div>
-          <div class="c-val"><a href="mailto:ichangjun412@gmail.com">ichangjun412@gmail.com</a></div>
-        </div>
-        <div style="width:1px; background:rgba(255,255,255,0.15);"></div>
-        <div class="contact-item">
-          <div class="c-label">연수 기간</div>
-          <div class="c-val" style="color:#fff;">2026. 9 ~ 12월</div>
+        <div class="apply-contact-list">
+          <div style="font-size:0.75rem; color:rgba(255,255,255,0.5); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:4px;">문의 — 우송대학교 국제교류처</div>
+          <div class="apply-contact-row">
+            <span class="ico">📞</span>
+            <div>
+              <div class="ac-label">전화 문의</div>
+              <div class="ac-val"><a href="tel:042-629-6677">042-629-6677</a></div>
+            </div>
+          </div>
+          <div class="apply-contact-row">
+            <span class="ico">✉️</span>
+            <div>
+              <div class="ac-label">이메일 문의</div>
+              <div class="ac-val"><a href="mailto:ichangjun412@gmail.com">ichangjun412@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="apply-contact-row">
+            <span class="ico">📅</span>
+            <div>
+              <div class="ac-label">연수 기간</div>
+              <div class="ac-val">2026년 9월 ~ 12월</div>
+            </div>
+          </div>
         </div>
       </div>
+
       <div class="apply-buttons">
         <a href="mailto:ichangjun412@gmail.com" class="btn-primary">📧 이메일로 문의하기</a>
         <a href="tel:042-629-6677" class="btn-secondary">📞 042-629-6677</a>
       </div>
+
+      <!-- 관심도 설문 -->
+      <div class="survey-box" id="surveyBox">
+        <div class="survey-q">이 프로그램에 관심이 있으신가요?</div>
+        <div class="survey-hint">클릭 한 번으로 참여 의사를 남겨주세요 (익명)</div>
+        <div class="survey-btns" id="surveyBtns">
+          <button class="s-yes" onclick="submitSurvey('yes')">👍 관심있다</button>
+          <button class="s-no" onclick="submitSurvey('no')">👋 관심없다</button>
+        </div>
+        <div class="survey-done" id="surveyDone">
+          <span class="check" id="surveyCheck"></span>
+          <span id="surveyMsg"></span>
+        </div>
+      </div>
+
       <p class="footer-note">
         © 2026 우송대학교 국제교류처 — WSUK 교환학생 프로그램<br>
         Woosong University Kazakhstan | wsuk.edu.kz | 카자흐스탄 투르케스탄
@@ -2615,6 +2773,38 @@
 
     function closePipOnBg(e) {
       if (e.target === document.getElementById('pipOverlay')) closePip();
+    }
+
+    // Survey
+    (function() {
+      var saved = localStorage.getItem('wsuk_survey_2026');
+      if (saved) showSurveyDone(saved);
+    })();
+
+    function submitSurvey(val) {
+      localStorage.setItem('wsuk_survey_2026', val);
+      showSurveyDone(val);
+      // 관심있다 선택 시 관리자에게 이메일 알림 (메일 앱 자동 실행)
+      if (val === 'yes') {
+        var link = document.createElement('a');
+        link.href = 'mailto:ichangjun412@gmail.com'
+          + '?subject=' + encodeURIComponent('[WSUK 2026] 관심 있다 응답')
+          + '&body=' + encodeURIComponent('WSUK 2026 카자흐스탄 교환학생 프로그램에 관심 있다고 응답한 학생이 있습니다.\n\n응답 일시: ' + new Date().toLocaleString('ko-KR'));
+        link.click();
+      }
+    }
+
+    function showSurveyDone(val) {
+      document.getElementById('surveyBtns').style.display = 'none';
+      var done = document.getElementById('surveyDone');
+      done.style.display = 'block';
+      if (val === 'yes') {
+        document.getElementById('surveyCheck').textContent = '✅';
+        document.getElementById('surveyMsg').textContent = '관심 있다고 응답해 주셨습니다. 국제교류처에서 안내드리겠습니다!';
+      } else {
+        document.getElementById('surveyCheck').textContent = '📝';
+        document.getElementById('surveyMsg').textContent = '응답해 주셔서 감사합니다. 언제든지 마음이 바뀌시면 문의해 주세요.';
+      }
     }
   </script>
 
