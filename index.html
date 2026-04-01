@@ -1497,6 +1497,47 @@
       margin-bottom: 8px;
     }
 
+    /* SURVEY FORM */
+    .survey-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .survey-form input {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-size: 0.9rem;
+      color: #fff;
+      outline: none;
+      transition: border-color .18s;
+      font-family: inherit;
+    }
+
+    .survey-form input::placeholder {
+      color: rgba(255,255,255,0.35);
+    }
+
+    .survey-form input:focus {
+      border-color: var(--accent);
+    }
+
+    .survey-form input.err {
+      border-color: #f87171;
+    }
+
+    .survey-err-msg {
+      font-size: 0.78rem;
+      color: #f87171;
+      margin-bottom: 4px;
+      display: none;
+    }
+
     /* APPLY QR */
     .apply-qr-wrap {
       display: flex;
@@ -2786,10 +2827,19 @@
       <!-- 관심도 설문 -->
       <div class="survey-box" id="surveyBox">
         <div class="survey-q">이 프로그램에 관심이 있으신가요?</div>
-        <div class="survey-hint">클릭 한 번으로 참여 의사를 남겨주세요 (익명)</div>
-        <div class="survey-btns" id="surveyBtns">
-          <button class="s-yes" onclick="submitSurvey('yes')">👍 관심있다</button>
-          <button class="s-no" onclick="submitSurvey('no')">👋 관심없다</button>
+        <div class="survey-hint">아래 정보를 입력하고 참여 의사를 남겨주세요</div>
+        <div id="surveyForm">
+          <div class="survey-form">
+            <input type="text" id="s-name" placeholder="이름" />
+            <input type="text" id="s-dept" placeholder="학과" />
+            <input type="tel"  id="s-phone" placeholder="전화번호 (예: 010-1234-5678)" />
+            <input type="email" id="s-email" placeholder="이메일" />
+          </div>
+          <div class="survey-err-msg" id="surveyErr">이름, 학과, 연락처(전화 또는 이메일)를 입력해 주세요.</div>
+          <div class="survey-btns">
+            <button class="s-yes" onclick="submitSurvey('yes')">👍 관심있다</button>
+            <button class="s-no" onclick="submitSurvey('no')">👋 관심없다</button>
+          </div>
         </div>
         <div class="survey-done" id="surveyDone">
           <span class="check" id="surveyCheck"></span>
@@ -2883,25 +2933,55 @@
     }
 
     function submitSurvey(val) {
+      var name  = (document.getElementById('s-name')  || {}).value || '';
+      var dept  = (document.getElementById('s-dept')  || {}).value || '';
+      var phone = (document.getElementById('s-phone') || {}).value || '';
+      var email = (document.getElementById('s-email') || {}).value || '';
+      var errEl = document.getElementById('surveyErr');
+
+      // 관심있다는 이름+학과+연락처 하나 이상 필수
+      if (val === 'yes' && (!name.trim() || !dept.trim() || (!phone.trim() && !email.trim()))) {
+        errEl.style.display = 'block';
+        ['s-name','s-dept'].forEach(function(id) {
+          var el = document.getElementById(id);
+          el.classList.toggle('err', !el.value.trim());
+        });
+        return;
+      }
+      if (errEl) errEl.style.display = 'none';
+
       localStorage.setItem('wsuk_survey_2026', val);
       showSurveyDone(val);
+
       if (val === 'yes') {
         openCheer();
+        var msg = [
+          '[WSUK 2026] 관심 있다 응답',
+          '',
+          '이름: ' + (name || '(미입력)'),
+          '학과: ' + (dept || '(미입력)'),
+          '전화: ' + (phone || '(미입력)'),
+          '이메일: ' + (email || '(미입력)'),
+          '',
+          '응답 일시: ' + new Date().toLocaleString('ko-KR')
+        ].join('\n');
+
         fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             access_key: WEB3FORMS_KEY,
-            subject: '[WSUK 2026] 관심 있다 응답',
+            subject: '[WSUK 2026] 관심 있다 — ' + name + ' (' + dept + ')',
             from_name: 'WSUK 홍보 사이트',
-            message: 'WSUK 2026 카자흐스탄 교환학생 프로그램에 관심 있다고 응답한 학생이 있습니다.\n\n응답 일시: ' + new Date().toLocaleString('ko-KR')
+            message: msg
           })
         }).catch(function() {});
       }
     }
 
     function showSurveyDone(val) {
-      document.getElementById('surveyBtns').style.display = 'none';
+      var form = document.getElementById('surveyForm');
+      if (form) form.style.display = 'none';
       var done = document.getElementById('surveyDone');
       done.style.display = 'block';
       if (val === 'yes') {
