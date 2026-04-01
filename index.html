@@ -104,7 +104,9 @@
     .hero {
       position: relative;
       min-height: 100vh;
-      background: linear-gradient(135deg, #0d2547 0%, #1a3c6e 45%, #2563a8 70%, #1e8c7a 100%);
+      background:
+        linear-gradient(135deg, rgba(13,37,71,0.80) 0%, rgba(26,60,110,0.72) 45%, rgba(15,76,64,0.70) 100%),
+        url('images/20251021_142238.jpg') center center / cover no-repeat;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -119,8 +121,8 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 70% 30%, rgba(232, 160, 32, 0.15) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 60% at 20% 80%, rgba(37, 99, 168, 0.2) 0%, transparent 55%);
+        radial-gradient(ellipse 60% 50% at 70% 30%, rgba(232, 160, 32, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 20% 80%, rgba(37, 99, 168, 0.15) 0%, transparent 55%);
     }
 
     .hero-badge {
@@ -938,6 +940,116 @@
       margin-top: 2px;
     }
 
+    /* GALLERY */
+    #gallery { background: #fff; }
+    #gallery .section-title { color: var(--primary); }
+
+    .gallery-grid {
+      columns: 4;
+      column-gap: 10px;
+    }
+    @media (max-width: 900px) { .gallery-grid { columns: 3; } }
+    @media (max-width: 600px) { .gallery-grid { columns: 2; } }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      display: block;
+    }
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform .35s, filter .35s;
+    }
+    .gallery-item:hover img { transform: scale(1.04); filter: brightness(0.82); }
+    .gallery-item .overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity .3s;
+      font-size: 2rem;
+    }
+    .gallery-item:hover .overlay { opacity: 1; }
+
+    .gallery-item.hidden { display: none; }
+
+    .load-more-wrap { text-align: center; margin-top: 36px; }
+    .btn-load-more {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 14px 40px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .btn-load-more:hover { background: #2563a8; transform: translateY(-2px); }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 85vh;
+      border-radius: 8px;
+      object-fit: contain;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.6);
+    }
+    .lb-close {
+      position: absolute;
+      top: 20px; right: 24px;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      opacity: 0.8;
+      transition: opacity .2s;
+    }
+    .lb-close:hover { opacity: 1; }
+    .lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #fff;
+      font-size: 2.5rem;
+      cursor: pointer;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: 50%;
+      width: 52px; height: 52px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .lb-nav:hover { background: rgba(255,255,255,0.22); }
+    .lb-prev { left: 16px; }
+    .lb-next { right: 16px; }
+    .lb-counter {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.85rem;
+      margin-top: 14px;
+    }
+
     /* CAMPUS */
     #campus {
       background: var(--primary);
@@ -1519,11 +1631,8 @@
             style="color:rgba(255,255,255,0.55); font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px;">
             온라인 신청 QR코드</div>
           <div class="qr-box">
-            <!-- QR placeholder grid -->
-            <div
-              style="width:80px; height:80px; background: repeating-conic-gradient(#1a3c6e 0% 25%, white 0% 50%) 0 0 / 12px 12px; border-radius: 6px; border: 3px solid #1a3c6e;">
-            </div>
-            <div class="qr-label">국제교류처 온라인 신청</div>
+            <img src="images/QR_code.png" alt="온라인 신청 QR코드" style="width:130px; height:130px; object-fit:contain; border-radius:6px;" />
+            <div class="qr-label">카메라로 스캔하여 신청</div>
           </div>
         </div>
         <div style="flex:1; min-width:280px;">
@@ -1738,6 +1847,109 @@
     </div>
   </section>
 
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="container">
+      <div class="section-label">Photo Gallery</div>
+      <h2 class="section-title">WSUK 현장 사진</h2>
+      <p class="section-desc" style="margin-bottom:36px;">실제 연수 현장의 생생한 모습을 확인하세요. 사진을 클릭하면 크게 볼 수 있습니다.</p>
+
+      <div class="gallery-grid" id="galleryGrid">
+        <div class="gallery-item" onclick="openLightbox(0)"><img src="images/20251020_225224.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item" onclick="openLightbox(1)"><img src="images/20251020_235903.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item" onclick="openLightbox(2)"><img src="images/20251021_001130.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item" onclick="openLightbox(3)"><img src="images/20251021_050620.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item" onclick="openLightbox(4)"><img src="images/20251021_053510.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item" onclick="openLightbox(5)"><img src="images/20251021_071602.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item" onclick="openLightbox(6)"><img src="images/20251021_084123.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item" onclick="openLightbox(7)"><img src="images/20251021_093423.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(8)"><img src="images/20251021_093437.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(9)"><img src="images/20251021_093451.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(10)"><img src="images/20251021_093547.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(11)"><img src="images/20251021_142238.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(12)"><img src="images/20251021_142341.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(13)"><img src="images/20251021_152840.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(14)"><img src="images/20251021_154546.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(15)"><img src="images/20251021_171417.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(16)"><img src="images/20251021_190242.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(17)"><img src="images/20251021_190246.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(18)"><img src="images/20251022_085448.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(19)"><img src="images/20251023_062659.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(20)"><img src="images/20251023_063114.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(21)"><img src="images/20251023_063542.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(22)"><img src="images/20251023_072058.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(23)"><img src="images/20251023_072445.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(24)"><img src="images/20251024_132122.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(25)"><img src="images/20251024_154642.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(26)"><img src="images/20251024_154740.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(27)"><img src="images/20251024_154751.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(28)"><img src="images/20251024_173233.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(29)"><img src="images/20251024_174541.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(30)"><img src="images/20251024_174552.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(31)"><img src="images/20251024_193112.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(32)"><img src="images/20251024_193137.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(33)"><img src="images/20251024_193317.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(34)"><img src="images/20251024_193415.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(35)"><img src="images/20251025_073249.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(36)"><img src="images/20251025_104443.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(37)"><img src="images/20251025_104534.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(38)"><img src="images/20251025_115957.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(39)"><img src="images/20251025_163944.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(40)"><img src="images/20251025_170124.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(41)"><img src="images/20251025_171333.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(42)"><img src="images/20251025_171337.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(43)"><img src="images/20251025_172145.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(44)"><img src="images/20251025_172204.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(45)"><img src="images/20251025_175325.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(46)"><img src="images/20251025_175341.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(47)"><img src="images/20251025_175345.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(48)"><img src="images/20251025_182926.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(49)"><img src="images/20251026_062243.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(50)"><img src="images/20251026_063258.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(51)"><img src="images/20251026_074943.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(52)"><img src="images/20251026_075252.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(53)"><img src="images/20251026_080610.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(54)"><img src="images/20251026_090022.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(55)"><img src="images/20251026_110920.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(56)"><img src="images/20251026_110942.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(57)"><img src="images/20251026_111059.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(58)"><img src="images/20251026_111110.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(59)"><img src="images/20251026_111222.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(60)"><img src="images/20251026_111231.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(61)"><img src="images/20251026_120112.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(62)"><img src="images/20251026_120124.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(63)"><img src="images/20251026_120138.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(64)"><img src="images/20251026_120158.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(65)"><img src="images/20251026_120202.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(66)"><img src="images/20251026_131122.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(67)"><img src="images/20251026_132131.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(68)"><img src="images/20251026_134718.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(69)"><img src="images/20251026_140452.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(70)"><img src="images/20251026_140458.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(71)"><img src="images/20251026_142633.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(72)"><img src="images/20251027_124141.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(73)"><img src="images/20251027_142321.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(74)"><img src="images/20251027_142329.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(75)"><img src="images/KakaoTalk_20250911_142226987.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(76)"><img src="images/KakaoTalk_20250911_142226987_02.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+        <div class="gallery-item hidden" onclick="openLightbox(77)"><img src="images/Screenshot_20251026_143749_Gallery.jpg" alt="WSUK 연수 사진" loading="lazy"><div class="overlay">🔍</div></div>
+      </div>
+
+      <div class="load-more-wrap">
+        <button class="btn-load-more" id="loadMoreBtn" onclick="loadMore()">사진 더 보기 (70장 남음)</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+    <button class="lb-close" onclick="closeLightbox()">✕</button>
+    <button class="lb-nav lb-prev" onclick="lbNav(-1)">‹</button>
+    <img id="lbImg" src="" alt="갤러리 이미지" />
+    <button class="lb-nav lb-next" onclick="lbNav(1)">›</button>
+    <div class="lb-counter" id="lbCounter"></div>
+  </div>
+
   <!-- CAMPUS -->
   <section id="campus">
     <div class="container">
@@ -1878,7 +2090,83 @@
   </section>
 
   <script>
-    function toggleFaq(btn) {
+    // Gallery images list
+  const galleryImages = [
+    'images/20251020_225224.jpg','images/20251020_235903.jpg','images/20251021_001130.jpg',
+    'images/20251021_050620.jpg','images/20251021_053510.jpg','images/20251021_071602.jpg',
+    'images/20251021_084123.jpg','images/20251021_093423.jpg','images/20251021_093437.jpg',
+    'images/20251021_093451.jpg','images/20251021_093547.jpg','images/20251021_142238.jpg',
+    'images/20251021_142341.jpg','images/20251021_152840.jpg','images/20251021_154546.jpg',
+    'images/20251021_171417.jpg','images/20251021_190242.jpg','images/20251021_190246.jpg',
+    'images/20251022_085448.jpg','images/20251023_062659.jpg','images/20251023_063114.jpg',
+    'images/20251023_063542.jpg','images/20251023_072058.jpg','images/20251023_072445.jpg',
+    'images/20251024_132122.jpg','images/20251024_154642.jpg','images/20251024_154740.jpg',
+    'images/20251024_154751.jpg','images/20251024_173233.jpg','images/20251024_174541.jpg',
+    'images/20251024_174552.jpg','images/20251024_193112.jpg','images/20251024_193137.jpg',
+    'images/20251024_193317.jpg','images/20251024_193415.jpg','images/20251025_073249.jpg',
+    'images/20251025_104443.jpg','images/20251025_104534.jpg','images/20251025_115957.jpg',
+    'images/20251025_163944.jpg','images/20251025_170124.jpg','images/20251025_171333.jpg',
+    'images/20251025_171337.jpg','images/20251025_172145.jpg','images/20251025_172204.jpg',
+    'images/20251025_175325.jpg','images/20251025_175341.jpg','images/20251025_175345.jpg',
+    'images/20251025_182926.jpg','images/20251026_062243.jpg','images/20251026_063258.jpg',
+    'images/20251026_074943.jpg','images/20251026_075252.jpg','images/20251026_080610.jpg',
+    'images/20251026_090022.jpg','images/20251026_110920.jpg','images/20251026_110942.jpg',
+    'images/20251026_111059.jpg','images/20251026_111110.jpg','images/20251026_111222.jpg',
+    'images/20251026_111231.jpg','images/20251026_120112.jpg','images/20251026_120124.jpg',
+    'images/20251026_120138.jpg','images/20251026_120158.jpg','images/20251026_120202.jpg',
+    'images/20251026_131122.jpg','images/20251026_132131.jpg','images/20251026_134718.jpg',
+    'images/20251026_140452.jpg','images/20251026_140458.jpg','images/20251026_142633.jpg',
+    'images/20251027_124141.jpg','images/20251027_142321.jpg','images/20251027_142329.jpg',
+    'images/KakaoTalk_20250911_142226987.jpg','images/KakaoTalk_20250911_142226987_02.jpg',
+    'images/Screenshot_20251026_143749_Gallery.jpg'
+  ];
+
+  let currentLbIndex = 0;
+
+  function openLightbox(index) {
+    currentLbIndex = index;
+    document.getElementById('lbImg').src = galleryImages[index];
+    document.getElementById('lbCounter').textContent = (index + 1) + ' / ' + galleryImages.length;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function closeLightboxOnBg(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+
+  function lbNav(dir) {
+    currentLbIndex = (currentLbIndex + dir + galleryImages.length) % galleryImages.length;
+    document.getElementById('lbImg').src = galleryImages[currentLbIndex];
+    document.getElementById('lbCounter').textContent = (currentLbIndex + 1) + ' / ' + galleryImages.length;
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (!document.getElementById('lightbox').classList.contains('active')) return;
+    if (e.key === 'ArrowRight') lbNav(1);
+    if (e.key === 'ArrowLeft') lbNav(-1);
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  function loadMore() {
+    const hidden = document.querySelectorAll('.gallery-item.hidden');
+    const toShow = Array.from(hidden).slice(0, 16);
+    toShow.forEach(el => el.classList.remove('hidden'));
+    const remaining = document.querySelectorAll('.gallery-item.hidden').length;
+    const btn = document.getElementById('loadMoreBtn');
+    if (remaining === 0) {
+      btn.style.display = 'none';
+    } else {
+      btn.textContent = '사진 더 보기 (' + remaining + '장 남음)';
+    }
+  }
+
+  function toggleFaq(btn) {
       btn.parentElement.classList.toggle('open');
     }
 
